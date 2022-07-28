@@ -1,0 +1,8 @@
+<hello name="{{ name }}"></hello>
+<p>Start editing to see some magic happen :)</p>
+<div>{{ responseValue | json }}</div>
+<form [formGroup]="loginForm">
+  <input type="text" [formControlName]="name" />
+  <!-- <error>required</error> -->
+  <button (click)="fun()" [disabled]="loginForm.invalid">Submit</button>
+</form>
