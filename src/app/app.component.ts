@@ -1,4 +1,10 @@
-import { Component, VERSION, OnInit } from '@angular/core';
+import {
+  Component,
+  VERSION,
+  OnInit,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { ServiceAppService } from './service-app.service';
 import { Subscriber } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -20,6 +26,8 @@ export class AppComponent implements OnInit {
   public responseValue: any;
   public arrayList = [7, 9, 5, 6, 4, 5];
   public responseApi: any = [];
+
+  @ViewChild('div', { static: true }) div: ElementRef;
 
   loginForm: FormGroup;
 
@@ -62,5 +70,18 @@ export class AppComponent implements OnInit {
 
   fun() {
     console.log();
+  }
+
+  changeColor() {
+    setInterval(() => {
+      console.log('Color change detection');
+      this.div.nativeElement.style.background = this.setRandomColor();
+    }, 5000);
+  }
+
+  setRandomColor() {
+    return ['red', 'orange', 'yellow', 'green', 'blue', 'purple'][
+      (Math.random() * 6) | 0
+    ];
   }
 }
