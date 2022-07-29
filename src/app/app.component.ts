@@ -4,6 +4,7 @@ import {
   OnInit,
   ElementRef,
   ViewChild,
+  NgZone,
 } from '@angular/core';
 import { ServiceAppService } from './service-app.service';
 import { Subscriber } from 'rxjs';
@@ -34,10 +35,11 @@ export class AppComponent implements OnInit {
   constructor(
     private service: ServiceAppService,
     private fb: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private ngZone: NgZone
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.service.getData().subscribe((res) => {
       console.log('response..' + res);
       this.responseValue = res;
@@ -56,6 +58,10 @@ export class AppComponent implements OnInit {
     var results2 = this.arrayList.sort((a, b) => b - a);
     var result = new Set(results2);
     console.log(...result);
+
+    this.ngZone.runOutsideAngular(() => {
+      this.changeColor();
+    });
   }
 
   loadFun() {
